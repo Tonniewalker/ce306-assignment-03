@@ -1,0 +1,218 @@
+:root {
+  --bg:          #2b2f36;
+  --surface:     #353a42;
+  --surface-2:   #3e444d;
+  --border:      #4a515b;
+  --text:        #e4e7eb;
+  --text-muted:  #9aa3ad;
+  --accent:      #8fb4f0;
+  --accent-dark: #6f97d6;
+  --income:      #7fd1a0;
+  --expense:     #f09a9a;
+  --radius:      14px;
+  --shadow:      0 4px 14px rgba(0, 0, 0, .18);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "IBM Plex Sans Thai", "Segoe UI", Tahoma, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 32px 16px 48px;
+  line-height: 1.5;
+}
+
+.container { max-width: 580px; margin: 0 auto; }
+
+h1 {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0 0 24px;
+  letter-spacing: .2px;
+}
+
+h3 {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* การ์ดสรุปการเงิน */
+.summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  box-shadow: var(--shadow);
+}
+.card h4 {
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.card p {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.card.balance {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #3b4350, #353a42);
+}
+.card.balance p { font-size: 34px; }
+.card.income  { border-left: 4px solid var(--income); }
+.card.expense { border-left: 4px solid var(--expense); }
+.card.income p  { color: var(--income); }
+.card.expense p { color: var(--expense); }
+
+/* กล่องฟอร์มและรายการ */
+.form-section,
+.list-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px 20px;
+  margin-top: 20px;
+  box-shadow: var(--shadow);
+}
+
+label {
+  display: block;
+  margin: 12px 0 6px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+input::placeholder { color: #7d8691; }
+input:focus,
+select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(143, 180, 240, .2);
+}
+select option { background: var(--surface); color: var(--text); }
+
+input[type=number]::-webkit-inner-spin-button { opacity: .4; }
+
+.btn {
+  width: 100%;
+  margin-top: 18px;
+  padding: 11px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1f2329;
+  background: var(--accent);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .15s, transform .05s;
+}
+.btn:hover  { background: var(--accent-dark); }
+.btn:active { transform: scale(.99); }
+
+/* ปุ่มล้างข้อมูล */
+.btn-danger {
+  color: var(--expense);
+  background: transparent;
+  border: 1px solid rgba(240, 154, 154, .45);
+}
+.btn-danger:hover { background: rgba(240, 154, 154, .1); }
+
+/* ช่องค้นหา */
+#search { margin-bottom: 4px; }
+
+/* รายการธุรกรรม */
+.list { list-style: none; padding: 0; margin: 12px 0 0; }
+
+.list li {
+  display: grid;
+  grid-template-columns: 34px 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  background: var(--surface-2);
+  border: 1px solid transparent;
+  border-left: 4px solid;
+  border-radius: 10px;
+  transition: border-color .15s, background .15s;
+  animation: fadeIn .2s ease;
+}
+.list li:hover { background: #444a54; }
+.list li.plus  { border-left-color: var(--income); }
+.list li.minus { border-left-color: var(--expense); }
+
+.list .id {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.list .name { font-weight: 500; }
+.list .meta { font-size: 12px; color: var(--text-muted); }
+.list .amount {
+  font-weight: 600;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.list li.plus  .amount { color: var(--income); }
+.list li.minus .amount { color: var(--expense); }
+
+.delete-btn {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 14px;
+  cursor: pointer;
+  opacity: .5;
+  transition: opacity .15s, background .15s, color .15s;
+}
+.list li:hover .delete-btn { opacity: 1; }
+.delete-btn:hover { background: rgba(240, 154, 154, .15); color: var(--expense); }
+
+.empty {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 16px 0 4px;
+  margin: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* จอมือถือ */
+@media (max-width: 420px) {
+  .card.balance p { font-size: 28px; }
+  .card p { font-size: 18px; }
+}

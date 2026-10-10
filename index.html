@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>โปรแกรมบัญชีรายรับ-รายจ่าย</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>💰 บัญชีรายรับ-รายจ่าย</h1>
+
+    <!-- สรุปรายงานการเงิน -->
+    <section class="summary">
+      <div class="card balance">
+        <h4>ยอดเงินคงเหลือสุทธิ</h4>
+        <p id="balance">฿0.00</p>
+      </div>
+      <div class="card income">
+        <h4>รายรับรวม</h4>
+        <p id="total-income">฿0.00</p>
+      </div>
+      <div class="card expense">
+        <h4>รายจ่ายรวม</h4>
+        <p id="total-expense">฿0.00</p>
+      </div>
+    </section>
+
+    <!-- ฟอร์มเพิ่มธุรกรรม -->
+    <section class="form-section">
+      <h3>เพิ่มรายการใหม่</h3>
+      <form id="transaction-form">
+        <label for="type">ประเภท</label>
+        <select id="type">
+          <option value="income">รายรับ</option>
+          <option value="expense" selected>รายจ่าย</option>
+        </select>
+
+        <label for="text">ชื่อรายการ</label>
+        <input type="text" id="text" placeholder="เช่น ข้าวมันไก่" required>
+
+        <!-- เลือกหมวดหมู่ -->
+        <label for="category">หมวดหมู่</label>
+        <select id="category">
+          <option value="food">🍔 อาหาร</option>
+          <option value="travel">🚗 เดินทาง</option>
+          <option value="shopping">🛍️ ช้อปปิ้ง</option>
+          <option value="salary">💼 เงินเดือน</option>
+          <option value="other">📦 อื่นๆ</option>
+        </select>
+
+        <label for="amount">จำนวนเงิน (บาท)</label>
+        <input type="number" id="amount" placeholder="0.00" min="0.01" step="0.01" required>
+
+        <button type="submit" class="btn">เพิ่มรายการ</button>
+      </form>
+    </section>
+
+    <!-- รายการธุรกรรม -->
+    <section class="list-section">
+      <h3>ประวัติรายการ</h3>
+
+      <!-- ช่องค้นหาแบบ Real-time -->
+      <input type="text" id="search" placeholder="🔍 ค้นหาชื่อรายการ...">
+
+      <!-- ตารางแสดงประวัติรายการทั้งหมด -->
+      <ul id="list" class="list"></ul>
+      <p id="empty-msg" class="empty">ยังไม่มีรายการ</p>
+
+      <!-- ปุ่มล้างข้อมูลทั้งหมด -->
+      <button id="clear-btn" class="btn btn-danger">🗑️ ล้างข้อมูลทั้งหมด</button>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
